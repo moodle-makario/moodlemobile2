@@ -1,14 +1,14 @@
 {
-  "name": "moodlemobile",
+  "name": "rswmoodlemobile",
   "version": "3.4.0",
-  "description": "The official app for Moodle.",
+  "description": "The official app for RSW Moodle.",
   "author": {
     "name": "Moodle Pty Ltd.",
     "email": "mobile@moodle.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/moodlehq/moodlemobile2.git"
+    "url": "https://github.com/moodle-makario/moodlemobile2.git"
   },
   "license": "Apache-2.0",
   "licenses": [
@@ -19,7 +19,9 @@
   ],
   "dependencies": {
     "electron-windows-notifications": "^1.1.13",
-    "electron-builder-squirrel-windows": "^19.3.0"
+    "electron-builder-squirrel-windows": "^19.3.0",
+    "cordova-android": "6.1.2",
+    "cordova-ios": "4.3.1"
   },
   "devDependencies": {
     "appium": "^1.6.0",
@@ -72,7 +74,7 @@
   },
   "main": "www/electron.js",
   "build": {
-    "appId": "com.moodle.moodledesktop",
+    "appId": "com.makarioworks.rsw",
     "productName": "Moodle Desktop",
     "files": [
       "!desktop",
@@ -116,5 +118,11 @@
     "snap": {
       "confinement": "classic"
     }
+  },
+  "cordova": {
+    "platforms": [
+      "android",
+      "ios"
+    ]
   }
 }

@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <meta http-equiv="Content-Security-Policy" content="default-src * filesystem: cdvfile: file: gap: https://ssl.gstatic.com; img-src * filesystem: gap: data: cdvfile: file: https://ssl.gstatic.com android-webview-video-poster: blob:; style-src 'self' 'unsafe-inline' filesystem: cdvfile: file:; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:* filesystem: cdvfile: file:; media-src * filesystem: cdvfile: file: gap: blob:">
-    <title>Moodle Desktop</title> <!-- Title is used in desktop, but should be ignored in mobile apps. -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src * filesystem: cdvfile: file: gap: https://ssl.gstatic.com; img-src * filesystem: gap: data: cdvfile: file: https://ssl.gstatic.com android-webview-video-poster: blob:; style-src 'self' 'unsafe-inline' filesystem: cdvfile: file:; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:* filesystem: cdvfile: file:; media-src * filesystem: cdvfile: file: gap: blob:"> -->
+    <meta content="default-src * filesystem: cdvfile: file: gap: https://ssl.gstatic.com; img-src * filesystem: gap: data: cdvfile: file: https://ssl.gstatic.com android-webview-video-poster: blob:; style-src 'self' 'unsafe-inline' filesystem: cdvfile: file:; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:* filesystem: cdvfile: file:; media-src * filesystem: cdvfile: file: gap: blob:">
+
+    <title>RSW Desktop</title> <!-- Title is used in desktop, but should be ignored in mobile apps. -->
     <link href="build/mm.bundle.css" rel="stylesheet">
     <script src="lib/ionic/release/js/ionic.bundle.js"></script>
     <script src="cordova.js"></script>
@@ -23,9 +25,67 @@
     <script src="lib/chart.js/dist/Chart.js"></script>
     <script src="lib/angular-chart.js/dist/angular-chart.min.js"></script>
     <script src="build/mm.bundle.js"></script>
+    <script src="./core/main.js"></script>
     <style></style> <!-- Empty style to make easier to test styles using Inspector. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
-  <body ng-app="mm">
+  <body ng-app="app.js" ng-controller="mm.core.login" class="container">
     <ion-nav-view></ion-nav-view>
+
+    <script language="javascript">
+
+        // We use this code for handling unexpected errors.
+        // Using alert, we are sure that the user get notified in a Mobile device.
+        // We add this code at the begining of the index.html and we use only native javascript functions.
+        window.onerror = function(msg, url, lineNumber) {
+            if (typeof(msg) === "string") {
+                var error = msg + "\n\nFile: " + url + "\nLine: " + lineNumber;
+                // Ommit cordova and 3rd party libs errors.
+                if (url.indexOf("cordova") == -1 && url.indexOf("externallib") == -1 &&
+                        url.indexOf("org.apache.cordova") == -1) {
+                    window.alert(error);
+                }
+            } else {
+                var error = msg;
+            }
+
+            // This may help debugging if we use logging apps in iOs or Android.
+            if(typeof(console) !== "undefined" && typeof(console.log) === "function") {
+                console.log(error);
+            }
+
+            // Let default error handler run.
+            return false;
+        };
+
+    </script>
+   
+
+    
+    <!-- Login Form  -->
+  
+    <form id="login" class="form-center" action="" method="post"  mm-login>
+      <p> The site goes here: <a href="#form">https://healthdata.com.ng/rsw</a> </p>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <br>
+        <input type="text" name="username" class="form-control" id="name" required="required" placeholder="Enter your username">
+      </div>
+      <div class="form-group">
+          <label for="password">Password</label>
+          <br>
+          <input type="password" name="password" class="form-control" required="required" id="password" placeholder="Enter your password">
+      </div>
+
+      <button type="submit" class="btn btn-default btn-success"> Submit </button>
+    </form>
+
+    <script src="../www/core/components/login/controllers/credentials.js">
+        
+    </script>
+
   </body>
 </html>
